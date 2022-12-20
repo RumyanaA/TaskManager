@@ -37,7 +37,7 @@ function login() {
       } else {
         userId = response.data.id;
         userName = response.data.name
-        localStorage.setItem("id", userId);
+        localStorage.setItem("id", Number(userId));
         localStorage.setItem("name", userName);
         window.location = "http://localhost:8080/taskPage.html";
       }

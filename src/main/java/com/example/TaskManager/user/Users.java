@@ -22,6 +22,7 @@ public class Users implements Serializable{
         this.password = password;
     }
 
+
     public Users() {
     }
 
@@ -56,4 +57,5 @@ public class Users implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

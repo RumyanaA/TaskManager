@@ -64,10 +64,10 @@ function createTask() {
   var valueOftitle = document.getElementById("title").value;
   var valueOfDescr = document.getElementById("floatingTextarea2").value;
   var obj = {
-    CreatedBy: userId,
+    user_id: userId,
     title: valueOftitle,
     description: valueOfDescr,
-    status: "toDo",
+    status_id: 1,
   };
 
   var li = document.createElement("li");
@@ -93,7 +93,7 @@ function createTask() {
 
   //send obj to server
   //req.body=obj;
-  axios.post("http://localhost:5000/saveTask", obj).then(
+  axios.post("http://localhost:8080/task/saveTask", obj).then(
     (response) => {
       // obj.id=response.data;//id
       var id = document.createAttribute("id");
