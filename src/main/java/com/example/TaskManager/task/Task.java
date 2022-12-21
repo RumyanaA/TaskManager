@@ -12,23 +12,25 @@ public class Task {
     private Long id;
     private String title;
     private String description;
-    @ManyToOne(targetEntity = Status.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="status_id",insertable = false, updatable = false, referencedColumnName = "id")
+    @ManyToOne( optional = false)
+    @JoinColumn(name = "status_id", insertable=false, updatable=false)
+    private Status status;
+    @Column(name = "status_id")
     private Long status_id;
-    @ManyToOne(targetEntity = Users.class, fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", insertable = false, updatable = false, referencedColumnName = "id")
+    @ManyToOne()
+    @JoinColumn(name="user_id", insertable=false, updatable=false)
+    private Users user;
+    @Column(name = "user_id")
     private Long user_id;
-
 
     public Task() {
     }
 
-    public Task(Long id, String title, String description, Long status_id, Long user_id) {
+    public Task(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.status_id = status_id;
-        this.user_id = user_id;
+
     }
 
     public Long getId() {
@@ -55,6 +57,22 @@ public class Task {
         this.description = description;
     }
 
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Long getStatus_id() {
         return status_id;
     }
@@ -63,11 +81,11 @@ public class Task {
         this.status_id = status_id;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Users getUser() {
+        return user;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

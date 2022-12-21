@@ -1,7 +1,6 @@
 package com.example.TaskManager.user;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 
 @Entity

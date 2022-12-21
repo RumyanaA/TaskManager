@@ -35,15 +35,15 @@ function modalButton(event) {
   var pDescr = document.getElementById("taskDesc");
   var htitle = document.getElementById("taskTitle");
   axios
-    .get("http://localhost:5000/getTaskId", {
+    .get("http://localhost:8080/task/getTaskById", {
       params: {
-        buttonId: event.target.id,
+        taskId: event.target.id,
       },
     })
     .then(
       (response) => {
-        var clickedTask = response.data;
-        idd = response.data._id;
+        var clickedTask = response?.data;
+        idd = response?.data?.id;
         htitle.value = clickedTask.title;
         pDescr.value = clickedTask.description;
         if (clickedTask.status == "done") {
@@ -95,9 +95,9 @@ function createTask() {
   //req.body=obj;
   axios.post("http://localhost:8080/task/saveTask", obj).then(
     (response) => {
-      // obj.id=response.data;//id
+       obj.id=response.data;
       var id = document.createAttribute("id");
-      id.value = response.data;
+      id.value = response?.data;
       button.setAttributeNode(id);
     },
     (error) => {
@@ -115,30 +115,30 @@ function createTask() {
 function onLoad() {
   userId = localStorage.getItem("id");
   axios
-    .get("http://localhost:5000/getTasks", {
+    .get("http://localhost:8080/task/getTasks", {
       params: {
         userId: userId,
       },
     })
     .then(
       (response) => {
-        userTasks = response.data;
-        for (var i = 0; i < userTasks.length; i++) {
-          if (userTasks[i].status == "toDo") {
+        userTasks = response?.data;
+        for (var i = 0; i < userTasks?.length; i++) {
+          if (userTasks[i].status.name === "ToDo") {
             taskAdding(
-              userTasks[i]._id,
+              userTasks[i].id,
               document.getElementById("todo"),
               userTasks[i].title
             );
-          } else if (userTasks[i].status == "inProgress") {
+          } else if (userTasks[i].status.name === "InProgress") {
             taskAdding(
-              userTasks[i]._id,
+              userTasks[i].id,
               document.getElementById("inProgress"),
               userTasks[i].title
             );
-          } else if (userTasks[i].status == "done") {
+          } else if (userTasks[i].status.name == "Done") {
             taskAdding(
-              userTasks[i]._id,
+              userTasks[i].id,
               document.getElementById("done"),
               userTasks[i].title
             );
@@ -211,14 +211,14 @@ function deleteTask(event) {
   liTarget.parentNode.remove();
 
   axios
-    .delete("http://localhost:5000/deleteTask", {
+    .delete("http://localhost:8080/task/deleteTask", {
       params: {
         taskId: idd,
       },
     })
     .then(
       (response) => {
-        alert(response.data);
+      response?.data === 1? alert("Task deleted successfully"): alert("Something went wrong");
       },
       (error) => {
         console.log(error);
