@@ -2,19 +2,19 @@ function changePage() {
   window.location = "registration.html";
 }
 function registerUser() {
-  var username = document.getElementById("userName").value;
-  var userEmail = document.getElementById("exampleInputEmail1").value;
-  var password = document.getElementById("Password1").value;
-  var repeatedpassword = document.getElementById("RepeatPassword1").value;
-  if (repeatedpassword != password) {
+  const username = document.getElementById("username-input").value;
+  const userEmail = document.getElementById("reg-email-input").value;
+  const userPassword = document.getElementById("reg-password-input").value;
+  const repeatedPassword = document.getElementById("repeat-password-input").value;
+  if (repeatedPassword !== userPassword) {
     alert("password doesnt match");
   } else {
-    var objUser = {
+    const newUser = {
       name: username,
       email: userEmail,
-      password: password,
+      password: userPassword,
     };
-    axios.post("http://localhost:8080/user/registration", objUser).then((response) => {
+    axios.post("http://localhost:8080/user/registration", newUser).then((response) => {
         if (response.data) {
           window.location = "http://localhost:8080/taskPage.html";
         } else {
@@ -27,8 +27,8 @@ function registerUser() {
 }
 
 function login() {
-  var email = document.getElementById("exampleInputEmail1").value;
-  var password = document.getElementById("exampleInputPassword1").value;
+  const email = document.getElementById("email-input").value;
+  const password = document.getElementById("password-input").value;
   axios
     .get(`http://localhost:8080/user/login?email=${email}&password=${password}`)
     .then((response) => {
