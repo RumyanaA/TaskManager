@@ -25,12 +25,23 @@ public class TaskController {
         return taskService.getUserTasks(userId);
     }
 
+    @PutMapping("updateTask")
+    public int updateTask(@RequestBody Task task) {
+        return taskService.updateTask(task);
+    }
+
+    @PutMapping("updateTaskStatus")
+    public int updateStatusId(@RequestBody Task task) {
+        return taskService.updateStatusId(task);
+    }
+
     @GetMapping("getTaskById")
-    public Task getTask(@RequestParam Long taskId){
+    public Task getTask(@RequestParam Long taskId) {
         return taskService.getTask(taskId);
     }
+
     @DeleteMapping("deleteTask")
-    public int deleteTask(@RequestParam Long taskId){
+    public int deleteTask(@RequestParam Long taskId) {
         return taskService.deleteTask(taskId);
     }
 }

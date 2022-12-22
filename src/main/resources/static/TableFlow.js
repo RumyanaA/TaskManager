@@ -16,10 +16,10 @@ function allowDrop(ev) {
           li.append(document.getElementById(data));
 
           var updateStatus = {
-            taskId: data,
-            taskStatus: ev.target.id,
+            id: data,
+            status_id: 2,
           };
-          axios.put("http://localhost:5000/moveTask", updateStatus).then(
+          axios.put("http://localhost:8080/task/updateTaskStatus", updateStatus).then(
             (response) => {
               alert(response.data);
             },
@@ -39,10 +39,10 @@ function allowDrop(ev) {
           li.addEventListener("dragstart", drag);
 
           var updateStatus = {
-            taskId: data,
-            taskStatus: ev.target.id,
+            id: data,
+            status_id: 1,
           };
-          axios.put("http://localhost:5000/moveTask", updateStatus).then(
+          axios.put("http://localhost:8080/task/updateTaskStatus", updateStatus).then(
             (response) => {
               alert(response.data);
             },
@@ -65,10 +65,10 @@ function allowDrop(ev) {
         li.append(document.getElementById(data));
 
         var updateStatus = {
-          taskId: data,
-          taskStatus: ev.target.id,
+          id: data,
+          status_id: 3,
         };
-        axios.put("http://localhost:5000/moveTask", updateStatus).then(
+        axios.put("http://localhost:8080/task/updateTaskStatus", updateStatus).then(
           (response) => {
             alert(response.data);
           },

@@ -160,7 +160,7 @@ function editTask() {
   pDescr.readOnly = false;
 }
 
-function saveTask(event) {
+function updateTask(event) {
   document.getElementById("bSave").style.display = "none";
   document.getElementById("bEdit").style.display = "block";
   var htitle = document.getElementById("taskTitle");
@@ -168,23 +168,25 @@ function saveTask(event) {
   htitle.readOnly = true;
   pDescr.readOnly = true;
   var but = document.getElementById(idd);
-  var update = {
-    button: idd,
+  var taskToUpdate = {
+    id: idd,
     title: htitle.value,
     description: pDescr.value,
   };
-  axios.put("http://localhost:5000/getCurrentTask", update).then((response) => {
-    taskToSave = response.data;
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i].id == idd) {
-        arr[i].title = htitle.value;
-        arr[i].description = pDescr.value;
-      }
+  axios.put("http://localhost:8080/task/updateTask", taskToUpdate).then((response) => {
+    if(response?.data === 1){
+     for (var i = 0; i < arr.length; i++) {
+          if (arr[i].id == idd) {
+            arr[i].title = htitle.value;
+            arr[i].description = pDescr.value;
+          }
+        }
+        but.textContent = htitle.value;
+      };
+    })
     }
 
-    but.textContent = htitle.value;
-  });
-}
+//move to taskFlow.js
 function liRemove() {
   var ulID = document.getElementById("todo");
   var ulID2 = document.getElementById("inProgress");

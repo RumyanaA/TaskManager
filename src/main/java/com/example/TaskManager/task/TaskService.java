@@ -11,22 +11,32 @@ public class TaskService {
 
 
     @Autowired
-    public TaskService(TaskRepository taskRepository){
+    public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
-    public Long addNewTask(Task task){
+
+    public Long addNewTask(Task task) {
         taskRepository.save(task);
         return task.getId();
     }
 
-    public List<Task> getUserTasks(Long userId){
+    public List<Task> getUserTasks(Long userId) {
         return taskRepository.getTasks(userId);
     }
 
-    public Task getTask(Long taskId){
+    public Task getTask(Long taskId) {
         return taskRepository.getTaskById(taskId);
     }
-    public int deleteTask(Long taskId){
+
+    public int updateTask(Task task) {
+        return taskRepository.updateTaskById(task.getTitle(), task.getDescription(), task.getId());
+    }
+
+    public int updateStatusId(Task task) {
+        return taskRepository.updateStatusIdByTaskId(task.getStatus_id(), task.getId());
+    }
+
+    public int deleteTask(Long taskId) {
         return taskRepository.deleteTask(taskId);
     }
 }
