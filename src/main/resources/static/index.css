@@ -1,8 +1,15 @@
+.containerDiv{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top:27px;
+    height:677px;
+    width: 1380px;
+}
 .wrapper{
     border-radius:15px;
     width: 500px;
-    margin-top: 5%;
-    margin-left: 33%
+    margin-bottom: 12px;
 }
 form{
         display: flex;

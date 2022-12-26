@@ -1,5 +1,6 @@
-package com.example.TaskManager.task;
+package com.example.TaskManager.repositories;
 
+import com.example.TaskManager.task.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

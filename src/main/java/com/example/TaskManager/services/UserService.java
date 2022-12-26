@@ -1,5 +1,8 @@
-package com.example.TaskManager.user;
+package com.example.TaskManager.services;
 
+import com.example.TaskManager.interfaces.UserLoginData;
+import com.example.TaskManager.repositories.UserRepository;
+import com.example.TaskManager.user.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

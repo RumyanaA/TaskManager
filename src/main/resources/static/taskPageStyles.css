@@ -1,0 +1,22 @@
+table{
+    width: 50%;
+    margin-top: 7%;
+    margin-left: 4%;
+}
+
+.table-row{
+    height: 320px;
+}
+
+.table-data{
+    width:18%;
+     border: 1px solid black;
+}
+
+.ul-with-btn{
+height: 300px;
+}
+
+.ul-without-btn{
+height: 190px;
+}

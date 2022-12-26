@@ -1,5 +1,7 @@
-package com.example.TaskManager.task;
+package com.example.TaskManager.services;
 
+import com.example.TaskManager.task.Task;
+import com.example.TaskManager.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
