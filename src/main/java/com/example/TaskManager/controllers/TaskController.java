@@ -1,7 +1,7 @@
 package com.example.TaskManager.controllers;
 
 import com.example.TaskManager.services.TaskService;
-import com.example.TaskManager.task.Task;
+import com.example.TaskManager.entity.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

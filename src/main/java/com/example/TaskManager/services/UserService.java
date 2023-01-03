@@ -2,7 +2,7 @@ package com.example.TaskManager.services;
 
 import com.example.TaskManager.interfaces.UserLoginData;
 import com.example.TaskManager.repositories.UserRepository;
-import com.example.TaskManager.user.Users;
+import com.example.TaskManager.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public UserLoginData getUser(String email, String password) {
-        return userRepository.findUser(email, password);
+        return userRepository.findOneByEmailAndPassword(email, password);
     }
 
 }

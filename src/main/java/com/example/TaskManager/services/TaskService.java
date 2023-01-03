@@ -1,6 +1,6 @@
 package com.example.TaskManager.services;
 
-import com.example.TaskManager.task.Task;
+import com.example.TaskManager.entity.Task;
 import com.example.TaskManager.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +18,24 @@ public class TaskService {
     }
 
     public Long addNewTask(Task task) {
-        taskRepository.save(task);
+        taskRepository.saveAndFlush(task);
         return task.getId();
     }
 
     public List<Task> getUserTasks(Long userId) {
-        return taskRepository.getTasks(userId);
+        return taskRepository.findAllByUserId(userId);
     }
 
     public Task getTask(Long taskId) {
-        return taskRepository.getTaskById(taskId);
+        return taskRepository.findById(taskId).get();
     }
 
     public int updateTask(Task task) {
-        return taskRepository.updateTaskById(task.getTitle(), task.getDescription(), task.getId());
+        Task taskToUpdate = taskRepository.getReferenceById(task.getId());
+        taskToUpdate.setTitle(task.getTitle());
+        taskToUpdate.setDescription(task.getDescription());
+        taskRepository.save(taskToUpdate);
+        return 1;
     }
 
     public int updateStatusId(Task task) {
@@ -39,6 +43,7 @@ public class TaskService {
     }
 
     public int deleteTask(Long taskId) {
-        return taskRepository.deleteTask(taskId);
+        taskRepository.deleteById(taskId);
+        return 1;
     }
 }

@@ -1,24 +1,22 @@
-package com.example.TaskManager.task;
+package com.example.TaskManager.entity;
 
-import com.example.TaskManager.status.Status;
-import com.example.TaskManager.user.Users;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="tasks")
+@Table(name = "tasks")
 public class Task {
     @Id
     @GeneratedValue
     private Long id;
     private String title;
     private String description;
-    @ManyToOne( optional = false)
-    @JoinColumn(name = "status_id", insertable=false, updatable=false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "status_id", insertable = false, updatable = false)
     private Status status;
     @Column(name = "status_id")
     private Long status_id;
     @ManyToOne()
-    @JoinColumn(name="user_id", insertable=false, updatable=false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private Users user;
     @Column(name = "user_id")
     private Long user_id;

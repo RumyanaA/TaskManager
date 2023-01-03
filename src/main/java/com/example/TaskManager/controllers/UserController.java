@@ -2,7 +2,7 @@ package com.example.TaskManager.controllers;
 
 import com.example.TaskManager.services.UserService;
 import com.example.TaskManager.interfaces.UserLoginData;
-import com.example.TaskManager.user.Users;
+import com.example.TaskManager.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

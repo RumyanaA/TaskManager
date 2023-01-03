@@ -1,13 +1,14 @@
-package com.example.TaskManager.user;
+package com.example.TaskManager.entity;
 
 import jakarta.persistence.*;
+
 import java.io.Serializable;
 
 @Entity
 @Table
-public class Users implements Serializable{
+public class Users implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(unique = true)
