@@ -138,6 +138,7 @@ for (let i = 0; i < tasksToDistribute?.length; i++) {
 }
 function onLoad() {
   userId = localStorage.getItem("id");
+  userName = localStorage.getItem("name")
   axios
     .get("http://localhost:8080/task/getTasks", {
       params: {
@@ -154,6 +155,7 @@ function onLoad() {
       }
     );
   document.getElementById("bSave").style.display = "none";
+  document.getElementById("user-name").innerHTML = `${userName}'s list`;
 }
 function editTask() {
   document.getElementById("bSave").style.display = "block";
@@ -248,3 +250,8 @@ function getTasksByTitle(){
       )
 }
 const inputChange = debounce(() => getTasksByTitle());
+
+function logout(){
+    localStorage.clear();
+    window.location = "http://localhost:8080/index.html";
+}

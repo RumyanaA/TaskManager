@@ -2,6 +2,7 @@
 <html style="height:100%;">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/0d11ef71ed.js" crossorigin="anonymous"></script>
     <script src="TasksFlow.js"></script>
     <script src="TableFlow.js"></script>
     <link rel="stylesheet" href="taskPageStyles.css"/>
@@ -17,6 +18,7 @@
       td {
         border: 1px solid black;
       }
+
 
 
 
@@ -109,108 +111,116 @@
         </div>
     </div>
 </div>
-<div>
-    <input type="text" id="title-search-input" onkeyup="inputChange()"/>
-</div>
-<table>
-    <tr class="row-titles">
-        <th>To do</th>
-        <th>In progress</th>
-        <th>Done</th>
-    </tr>
-    <tr class="table-row">
-        <td class="table-data">
-            <br/>
-            <!-- Button trigger modal -->
-            <button
-                    id="butId"
-                    type="button"
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-            >
-                +Add
-            </button>
-            <br/>
-            <ul class="ul-with-btn" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
-
-                <!-- Modal -->
-                <div
-                        class="modal fade"
-                        id="exampleModal"
-                        tabindex="-1"
-                        aria-labelledby="modal-task-title-id"
-                        aria-hidden="true"
+<div class="content-wrapper">
+    <div class="name-and-search-input">
+        <input type="text" class="form-control" placeholder="Search by title..." style="width:23%;"
+               id="title-search-input"
+               onkeyup="inputChange()"/>
+        <div class="user-name-container">
+            <h4 id="user-name"></h4>
+            <i class="fa-solid fa-right-from-bracket" style="margin-top: 5px; cursor: pointer;" onClick="logout()"></i>
+        </div>
+    </div>
+    <table>
+        <tr class="row-titles">
+            <th>To do</th>
+            <th>In progress</th>
+            <th>Done</th>
+        </tr>
+        <tr class="table-row">
+            <td class="table-data">
+                <br/>
+                <!-- Button trigger modal -->
+                <button
+                        id="butId"
+                        type="button"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
                 >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-task-title-id"></h5>
-                                <button
-                                        type="button"
-                                        class="btn-close"
-                                        data-bs-dismiss="modal"
-                                        aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-floating">
-                                    <input
-                                            id="title"
-                                            type="text"
-                                            class="form-control"
-                                            aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default"
-                                    />
-                                    <label for="title">Title</label><br/>
+                    +Add
+                </button>
+                <br/>
+                <ul class="ul-with-btn" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                    <!-- Modal -->
+                    <div
+                            class="modal fade"
+                            id="exampleModal"
+                            tabindex="-1"
+                            aria-labelledby="modal-task-title-id"
+                            aria-hidden="true"
+                    >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-task-title-id"></h5>
+                                    <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                    ></button>
                                 </div>
-                                <div class="form-floating">
+                                <div class="modal-body">
+                                    <div class="form-floating">
+                                        <input
+                                                id="title"
+                                                type="text"
+                                                class="form-control"
+                                                aria-label="Sizing example input"
+                                                aria-describedby="inputGroup-sizing-default"
+                                        />
+                                        <label for="title">Title</label><br/>
+                                    </div>
+                                    <div class="form-floating">
                       <textarea
                               class="form-control"
                               placeholder="Leave a comment here"
                               id="description"
                               style="height: 100px"
                       ></textarea>
-                                    <label for="description">Description</label>
+                                        <label for="description">Description</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button
-                                        type="button"
-                                        class="btn btn-secondary"
-                                        data-bs-dismiss="modal"
-                                >
-                                    Close
-                                </button>
-                                <button
-                                        onclick="createTask()"
-                                        type="button"
-                                        class="btn btn-primary"
-                                        data-bs-dismiss="modal"
-                                >
-                                    Save changes
-                                </button>
+                                <div class="modal-footer">
+                                    <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal"
+                                    >
+                                        Close
+                                    </button>
+                                    <button
+                                            onclick="createTask()"
+                                            type="button"
+                                            class="btn btn-primary"
+                                            data-bs-dismiss="modal"
+                                    >
+                                        Save changes
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </ul>
-        </td>
-        <td class="table-data">
-            <ul
-                    class="ul-without-btn"
-                    id="inProgress"
-                    ondrop="drop(event)"
-                    ondragover="allowDrop(event)"
-            >
-            </ul>
-        </td>
-        <td class="table-data">
-            <ul class="ul-without-btn" id="done" ondrop="dropInDoneList(event)" ondragover="allowDrop(event)">
-            </ul>
-        </td>
-    </tr>
-</table>
+                </ul>
+            </td>
+            <td class="table-data">
+                <ul
+                        class="ul-without-btn"
+                        id="inProgress"
+                        ondrop="drop(event)"
+                        ondragover="allowDrop(event)"
+                >
+                </ul>
+            </td>
+            <td class="table-data">
+                <ul class="ul-without-btn" id="done" ondrop="dropInDoneList(event)" ondragover="allowDrop(event)">
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
