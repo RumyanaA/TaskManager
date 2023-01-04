@@ -1,39 +1,40 @@
-var userId;
+let userId;
 
 
-var idd;
+let currentlySelectedTaskId;
 
-var arr = [];
-function taskAdding(id, ul, valueOftitle) {
-  var li = document.createElement("li");
-  var button = document.createElement("button");
-  var tAttribute = document.createAttribute("type");
-  tAttribute.value = "button";
-  button.setAttributeNode(tAttribute);
+const allUserTasks = [];
+function addTask(id, listId, taskTitle) {
+  const li = document.createElement("li");
+  const button = document.createElement("button");
+  const buttonType = document.createAttribute("type");
+  buttonType.value = "button";
+  button.setAttributeNode(buttonType);
 
-  var bAttribute = document.createAttribute("data-bs-toggle");
-  bAttribute.value = "modal";
-  button.setAttributeNode(bAttribute);
+  const toggleAttribute = document.createAttribute("data-bs-toggle");
+  toggleAttribute.value = "modal";
+  button.setAttributeNode(toggleAttribute);
 
-  var butAttribute = document.createAttribute("data-bs-target");
-  butAttribute.value = "#taskModal";
-  button.setAttributeNode(butAttribute);
-  button.addEventListener("click", modalButton);
-  button.textContent = valueOftitle;
+  const targetAttribute = document.createAttribute("data-bs-target");
+  targetAttribute.value = "#taskModal";
+  button.setAttributeNode(targetAttribute);
+  button.addEventListener("click", openTaskDetails);
+  button.textContent = taskTitle;
+  li.append(button);
 
-  li.append(button); //='<button type="button"> </button>'
-  var draggable = document.createAttribute("draggable");
-  draggable.value = "true";
-  button.setAttributeNode(draggable);
-  var idAttr = document.createAttribute("id");
+  const ul = document.getElementById(listId);
+  const draggableAttr = document.createAttribute("draggable");
+  draggableAttr.value = listId !== "done";
+  button.setAttributeNode(draggableAttr);
+  const idAttr = document.createAttribute("id");
   idAttr.value = id;
   button.setAttributeNode(idAttr);
   button.addEventListener("dragstart", drag);
   ul.append(li);
 }
-function modalButton(event) {
-  var pDescr = document.getElementById("taskDesc");
-  var htitle = document.getElementById("taskTitle");
+function openTaskDetails(event) {
+  const taskDesc = document.getElementById("taskDesc");
+  const taskTitle = document.getElementById("taskTitle");
   axios
     .get("http://localhost:8080/task/getTaskById", {
       params: {
@@ -42,11 +43,11 @@ function modalButton(event) {
     })
     .then(
       (response) => {
-        var clickedTask = response?.data;
-        idd = response?.data?.id;
-        htitle.value = clickedTask.title;
-        pDescr.value = clickedTask.description;
-        if (clickedTask.status == "done") {
+        const currentTask = response?.data;
+        currentlySelectedTaskId = response?.data?.id;
+        taskTitle.value = currentTask.title;
+        taskDesc.value = currentTask.description;
+        if (currentTask.status == "done") {
           document.getElementById("bSave").style.display = "none";
           document.getElementById("bEdit").style.display = "none";
         } else {
@@ -61,42 +62,42 @@ function modalButton(event) {
 }
 
 function createTask() {
-  var valueOftitle = document.getElementById("title").value;
-  var valueOfDescr = document.getElementById("floatingTextarea2").value;
-  var obj = {
+  const taskTitle = document.getElementById("title").value;
+  const taskDesc = document.getElementById("description").value;
+  const newTask = {
     user_id: userId,
-    title: valueOftitle,
-    description: valueOfDescr,
+    title: taskTitle,
+    description: taskDesc,
     status_id: 1,
   };
 
-  var li = document.createElement("li");
-  var button = document.createElement("button");
-  var tAttribute = document.createAttribute("type");
-  tAttribute.value = "button";
-  button.setAttributeNode(tAttribute);
+  const li = document.createElement("li");
+  const button = document.createElement("button");
+  const buttonType = document.createAttribute("type");
+  buttonType.value = "button";
+  button.setAttributeNode(buttonType);
 
-  var bAttribute = document.createAttribute("data-bs-toggle");
-  bAttribute.value = "modal";
-  button.setAttributeNode(bAttribute);
+  const toggleAttribute = document.createAttribute("data-bs-toggle");
+  toggleAttribute.value = "modal";
+  button.setAttributeNode(toggleAttribute);
 
-  var butAttribute = document.createAttribute("data-bs-target");
-  butAttribute.value = "#taskModal";
-  button.setAttributeNode(butAttribute);
-  button.addEventListener("click", modalButton);
-  button.textContent = valueOftitle;
+  const targetAttribute = document.createAttribute("data-bs-target");
+  targetAttribute.value = "#taskModal";
+  button.setAttributeNode(targetAttribute);
+  button.addEventListener("click", openTaskDetails);
+  button.textContent = taskTitle;
 
-  li.append(button); //='<button type="button"> </button>'
-  var draggable = document.createAttribute("draggable");
-  draggable.value = "true";
-  button.setAttributeNode(draggable);
+  li.append(button);
+  const draggableAttr = document.createAttribute("draggable");
+  draggableAttr.value = "true";
+  button.setAttributeNode(draggableAttr);
 
-  //send obj to server
-  //req.body=obj;
-  axios.post("http://localhost:8080/task/saveTask", obj).then(
+  //send newTask to server
+  //req.body=newTask;
+  axios.post("http://localhost:8080/task/saveTask", newTask).then(
     (response) => {
-       obj.id=response.data;
-      var id = document.createAttribute("id");
+       newTask.id=response.data;
+      const id = document.createAttribute("id");
       id.value = response?.data;
       button.setAttributeNode(id);
     },
@@ -105,12 +106,12 @@ function createTask() {
     }
   );
 
-  arr.push(obj);
+  allUserTasks.push(newTask);
   button.addEventListener("dragstart", drag);
-  var todo = document.getElementById("todo");
+  const todo = document.getElementById("todo");
   todo.append(li);
   document.getElementById("title").value = "";
-  document.getElementById("floatingTextarea2").value = "";
+  document.getElementById("description").value = "";
 }
 function onLoad() {
   userId = localStorage.getItem("id");
@@ -123,23 +124,23 @@ function onLoad() {
     .then(
       (response) => {
         userTasks = response?.data;
-        for (var i = 0; i < userTasks?.length; i++) {
+        for (let i = 0; i < userTasks?.length; i++) {
           if (userTasks[i].status.name === "ToDo") {
-            taskAdding(
+            addTask(
               userTasks[i].id,
-              document.getElementById("todo"),
+              "todo",
               userTasks[i].title
             );
           } else if (userTasks[i].status.name === "InProgress") {
-            taskAdding(
+            addTask(
               userTasks[i].id,
-              document.getElementById("inProgress"),
+              "inProgress",
               userTasks[i].title
             );
-          } else if (userTasks[i].status.name == "Done") {
-            taskAdding(
+          } else if (userTasks[i].status.name === "Done") {
+            addTask(
               userTasks[i].id,
-              document.getElementById("done"),
+              "done",
               userTasks[i].title
             );
           }
@@ -154,68 +155,47 @@ function onLoad() {
 function editTask() {
   document.getElementById("bSave").style.display = "block";
   document.getElementById("bEdit").style.display = "none";
-  var htitle = document.getElementById("taskTitle");
-  var pDescr = document.getElementById("taskDesc");
-  htitle.readOnly = false;
-  pDescr.readOnly = false;
+  const taskTitle = document.getElementById("taskTitle");
+  const taskDesc = document.getElementById("taskDesc");
+  taskTitle.readOnly = false;
+  taskDesc.readOnly = false;
 }
 
 function updateTask(event) {
   document.getElementById("bSave").style.display = "none";
   document.getElementById("bEdit").style.display = "block";
-  var htitle = document.getElementById("taskTitle");
-  var pDescr = document.getElementById("taskDesc");
-  htitle.readOnly = true;
-  pDescr.readOnly = true;
-  var but = document.getElementById(idd);
-  var taskToUpdate = {
-    id: idd,
-    title: htitle.value,
-    description: pDescr.value,
+  const taskTitle = document.getElementById("taskTitle");
+  const taskDesc = document.getElementById("taskDesc");
+  taskTitle.readOnly = true;
+  taskDesc.readOnly = true;
+  const button = document.getElementById(currentlySelectedTaskId);
+  const taskToUpdate = {
+    id: currentlySelectedTaskId,
+    title: taskTitle.value,
+    description: taskDesc.value,
   };
   axios.put("http://localhost:8080/task/updateTask", taskToUpdate).then((response) => {
     if(response?.data === 1){
-     for (var i = 0; i < arr.length; i++) {
-          if (arr[i].id == idd) {
-            arr[i].title = htitle.value;
-            arr[i].description = pDescr.value;
+     for (let i = 0; i < allUserTasks.length; i++) {
+          if (allUserTasks[i].id == currentlySelectedTaskId) {
+            allUserTasks[i].title = taskTitle.value;
+            allUserTasks[i].description = taskDesc.value;
           }
         }
-        but.textContent = htitle.value;
+        button.textContent = taskTitle.value;
       };
     })
     }
 
-//move to taskFlow.js
-function liRemove() {
-  var ulID = document.getElementById("todo");
-  var ulID2 = document.getElementById("inProgress");
-  for (let i = 0; i < ulID.childNodes.length; i++) {
-    if (
-      ulID.childNodes[i].hasChildNodes() == false &&
-      ulID.childNodes[i].tagName == "LI"
-    ) {
-      ulID.childNodes[i].remove();
-    }
-  }
-  for (let j = 0; j < ulID2.childNodes.length; j++) {
-    if (
-      ulID2.childNodes[j].hasChildNodes() == false &&
-      ulID2.childNodes[j].tagName == "LI"
-    ) {
-      ulID2.childNodes[j].remove();
-    }
-  }
-}
 
 function deleteTask(event) {
-  var liTarget = document.getElementById(idd);
+  const liTarget = document.getElementById(currentlySelectedTaskId);
   liTarget.parentNode.remove();
 
   axios
     .delete("http://localhost:8080/task/deleteTask", {
       params: {
-        taskId: idd,
+        taskId: currentlySelectedTaskId,
       },
     })
     .then(
@@ -226,9 +206,9 @@ function deleteTask(event) {
         console.log(error);
       }
     );
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i].id == idd) {
-      arr.splice(i, 1);
+  for (let i = 0; i < allUserTasks.length; i++) {
+    if (allUserTasks[i].id == currentlySelectedTaskId) {
+      allUserTasks.splice(i, 1);
     }
   }
 }

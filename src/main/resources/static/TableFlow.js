@@ -2,80 +2,88 @@ function allowDrop(ev) {
         ev.preventDefault();
       }
 
-      function drag(ev) {
+function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id);
       }
 
+function removeLiElement() {
+  const todoList = document.getElementById("todo");
+  const inProgressList = document.getElementById("inProgress");
+  for (let i = 0; i < todoList.childNodes.length; i++) {
+    if (
+      todoList.childNodes[i].hasChildNodes() == false &&
+      todoList.childNodes[i].tagName == "LI"
+    ) {
+      todoList.childNodes[i].remove();
+    }
+  }
+  for (let j = 0; j < inProgressList.childNodes.length; j++) {
+    if (
+      inProgressList.childNodes[j].hasChildNodes() == false &&
+      inProgressList.childNodes[j].tagName == "LI"
+    ) {
+      inProgressList.childNodes[j].remove();
+    }
+  }
+}
       function drop(ev) {
         ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        var li = document.createElement("li");
+        const data = ev.dataTransfer.getData("text");
+        const li = document.createElement("li");
         if (ev.target.id == "inProgress") {
-          var inprogress = document.getElementById("inProgress");
-          inprogress.append(li);
+          const inProgress = document.getElementById("inProgress");
+          inProgress.append(li);
           li.append(document.getElementById(data));
-
-          var updateStatus = {
+          const updateStatus = {
             id: data,
             status_id: 2,
           };
           axios.put("http://localhost:8080/task/updateTaskStatus", updateStatus).then(
-            (response) => {
-              alert(response.data);
-            },
+            (response) => {},
             (error) => {
-              console.log(error);
+              alert(error);
             }
           );
-
-          liRemove();
+          removeLiElement();
         } else if (ev.target.id == "todo") {
-          var toDo = document.getElementById("todo");
+          const toDo = document.getElementById("todo");
           toDo.append(li);
           li.append(document.getElementById(data));
-          var draggable = document.createAttribute("draggable");
+          const draggable = document.createAttribute("draggable");
           draggable.value = "true";
           li.setAttributeNode(draggable);
           li.addEventListener("dragstart", drag);
-
-          var updateStatus = {
+          const updateStatus = {
             id: data,
             status_id: 1,
           };
           axios.put("http://localhost:8080/task/updateTaskStatus", updateStatus).then(
-            (response) => {
-              alert(response.data);
-            },
+            (response) => {},
             (error) => {
-              console.log(error);
+              alert(error);
             }
           );
-
-          liRemove();
+          removeLiElement();
         }
       }
-      function drop2(ev) {
+      function dropInDoneList(ev) {
         ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        var li = document.createElement("li");
-        var done = document.getElementById("done");
+        const data = ev.dataTransfer.getData("text");
+        const li = document.createElement("li");
+        const done = document.getElementById("done");
         done.append(li);
-        var dragBut = document.getElementById(data);
+        const dragBut = document.getElementById(data);
         dragBut.setAttribute("draggable", false);
         li.append(document.getElementById(data));
-
-        var updateStatus = {
+        const updateStatus = {
           id: data,
           status_id: 3,
         };
         axios.put("http://localhost:8080/task/updateTaskStatus", updateStatus).then(
-          (response) => {
-            alert(response.data);
-          },
+          (response) => {},
           (error) => {
-            console.log(error);
+            alert(error);
           }
         );
-
-        liRemove();
+        removeLiElement();
       }

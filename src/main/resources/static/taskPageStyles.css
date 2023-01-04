@@ -1,9 +1,20 @@
+body{
+  background-image: url("bground.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 table{
     width: 50%;
-    margin-top: 7%;
-    margin-left: 4%;
+    margin-top: 13.5%;
+    margin-left: 44%;
 }
-
+.row-titles{
+    background-color: #e500ff66;
+}
+ul li{
+        padding: 3px 0px;
+      }
 .table-row{
     height: 320px;
 }
@@ -12,11 +23,16 @@ table{
     width:18%;
      border: 1px solid black;
 }
-
+.btn-primary{
+    margin-bottom:3px;
+}
 .ul-with-btn{
 height: 300px;
+overflow-y:auto;
 }
 
 .ul-without-btn{
-height: 190px;
+height: 195px;
+margin-top: 25px;
+overflow-y:auto;
 }

@@ -21,6 +21,12 @@
 
 
 
+
+
+
+
+
+
     </style>
 </head>
 
@@ -30,13 +36,13 @@
         class="modal fade"
         id="taskModal"
         tabindex="-1"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="modal-title-id"
         aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="modal-title" id="modal-title-id"></h5>
                 <button
                         type="button"
                         class="btn-close"
@@ -99,14 +105,8 @@
     </div>
 </div>
 
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <span id="usernameField" class="navbar-brand mb-0 h1"></span>
-    </div>
-</nav>
-
 <table>
-    <tr>
+    <tr class="row-titles">
         <th>To do</th>
         <th>In progress</th>
         <th>Done</th>
@@ -125,19 +125,19 @@
                 >
                     +Add
                 </button>
-
+                <br/>
                 <!-- Modal -->
                 <div
                         class="modal fade"
                         id="exampleModal"
                         tabindex="-1"
-                        aria-labelledby="exampleModalLabel"
+                        aria-labelledby="modal-task-title-id"
                         aria-hidden="true"
                 >
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                <h5 class="modal-title" id="modal-task-title-id"></h5>
                                 <button
                                         type="button"
                                         class="btn-close"
@@ -160,10 +160,10 @@
                       <textarea
                               class="form-control"
                               placeholder="Leave a comment here"
-                              id="floatingTextarea2"
+                              id="description"
                               style="height: 100px"
                       ></textarea>
-                                    <label for="floatingTextarea2">Description</label>
+                                    <label for="description">Description</label>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -186,9 +186,6 @@
                         </div>
                     </div>
                 </div>
-                <li ondragstart="drag(event)" draggable="true">Coffee</li>
-                <li>Tea</li>
-                <li>Milk</li>
             </ul>
         </td>
         <td class="table-data">
@@ -198,16 +195,10 @@
                     ondrop="drop(event)"
                     ondragover="allowDrop(event)"
             >
-                <li>Coffee</li>
-                <li>Tea</li>
-                <li>Milk</li>
             </ul>
         </td>
         <td class="table-data">
-            <ul class="ul-without-btn" id="done" ondrop="drop2(event)" ondragover="allowDrop(event)">
-                <li>Coffee</li>
-                <li>Tea</li>
-                <li>Milk</li>
+            <ul class="ul-without-btn" id="done" ondrop="dropInDoneList(event)" ondragover="allowDrop(event)">
             </ul>
         </td>
     </tr>
