@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+    List<Task> findByTitleContainingIgnoreCaseAndUserId(String title, Long user_id);
+
     @Transactional
     @Modifying
     @Query("update Task t set t.status_id = :status_id where t.id = :id")

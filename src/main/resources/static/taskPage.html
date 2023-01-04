@@ -27,6 +27,11 @@
 
 
 
+
+
+
+
+
     </style>
 </head>
 
@@ -104,7 +109,9 @@
         </div>
     </div>
 </div>
-
+<div>
+    <input type="text" id="title-search-input" onkeyup="inputChange()"/>
+</div>
 <table>
     <tr class="row-titles">
         <th>To do</th>
@@ -113,19 +120,20 @@
     </tr>
     <tr class="table-row">
         <td class="table-data">
+            <br/>
+            <!-- Button trigger modal -->
+            <button
+                    id="butId"
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+            >
+                +Add
+            </button>
+            <br/>
             <ul class="ul-with-btn" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <br/>
-                <!-- Button trigger modal -->
-                <button
-                        id="butId"
-                        type="button"
-                        class="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                >
-                    +Add
-                </button>
-                <br/>
+
                 <!-- Modal -->
                 <div
                         class="modal fade"

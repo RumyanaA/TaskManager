@@ -113,6 +113,29 @@ function createTask() {
   document.getElementById("title").value = "";
   document.getElementById("description").value = "";
 }
+function distributeTasks(tasksToDistribute){
+for (let i = 0; i < tasksToDistribute?.length; i++) {
+          if (tasksToDistribute[i].status.name === "ToDo") {
+            addTask(
+              tasksToDistribute[i].id,
+              "todo",
+              tasksToDistribute[i].title
+            );
+          } else if (tasksToDistribute[i].status.name === "InProgress") {
+            addTask(
+              tasksToDistribute[i].id,
+              "inProgress",
+              tasksToDistribute[i].title
+            );
+          } else if (tasksToDistribute[i].status.name === "Done") {
+            addTask(
+              tasksToDistribute[i].id,
+              "done",
+              tasksToDistribute[i].title
+            );
+          }
+        }
+}
 function onLoad() {
   userId = localStorage.getItem("id");
   axios
@@ -124,27 +147,7 @@ function onLoad() {
     .then(
       (response) => {
         userTasks = response?.data;
-        for (let i = 0; i < userTasks?.length; i++) {
-          if (userTasks[i].status.name === "ToDo") {
-            addTask(
-              userTasks[i].id,
-              "todo",
-              userTasks[i].title
-            );
-          } else if (userTasks[i].status.name === "InProgress") {
-            addTask(
-              userTasks[i].id,
-              "inProgress",
-              userTasks[i].title
-            );
-          } else if (userTasks[i].status.name === "Done") {
-            addTask(
-              userTasks[i].id,
-              "done",
-              userTasks[i].title
-            );
-          }
-        }
+        distributeTasks(userTasks);
       },
       (error) => {
         console.log(error);
@@ -212,3 +215,36 @@ function deleteTask(event) {
     }
   }
 }
+function debounce(func, timeout = 1000){
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+function getTasksByTitle(){
+  const taskTitle = document.getElementById("title-search-input").value;
+  const todoList = document.getElementById("todo");
+  while(todoList.firstChild) todoList.removeChild(todoList.firstChild);
+  const inProgressList = document.getElementById("inProgress");
+  while(inProgressList.firstChild) inProgressList.removeChild(inProgressList.firstChild);
+  const doneList = document.getElementById("done");
+  while(doneList.firstChild) doneList.removeChild(doneList.firstChild);
+ axios
+     .get("http://localhost:8080/task/getTasksByTitle", {
+       params: {
+         title: taskTitle,
+         userId: userId
+       },
+     })
+     .then(
+     (response) => {
+          userTasks = response?.data;
+          distributeTasks(userTasks);
+           },
+           (error) => {
+             console.log(error);
+           }
+      )
+}
+const inputChange = debounce(() => getTasksByTitle());

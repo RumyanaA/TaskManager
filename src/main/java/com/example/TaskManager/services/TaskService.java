@@ -26,6 +26,10 @@ public class TaskService {
         return taskRepository.findAllByUserId(userId);
     }
 
+    public List<Task> findTasksByTitle(String taskTitle, Long userId) {
+        return taskRepository.findByTitleContainingIgnoreCaseAndUserId(taskTitle, userId);
+    }
+
     public Task getTask(Long taskId) {
         return taskRepository.findById(taskId).get();
     }

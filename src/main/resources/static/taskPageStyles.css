@@ -24,7 +24,8 @@ ul li{
      border: 1px solid black;
 }
 .btn-primary{
-    margin-bottom:3px;
+    margin-bottom:5px;
+    margin-left: 13px;
 }
 .ul-with-btn{
 height: 300px;
@@ -32,7 +33,6 @@ overflow-y:auto;
 }
 
 .ul-without-btn{
-height: 195px;
-margin-top: 25px;
+height: 235px;
 overflow-y:auto;
 }

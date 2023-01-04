@@ -27,6 +27,11 @@ public class TaskController {
         return taskService.getUserTasks(userId);
     }
 
+    @GetMapping("getTasksByTitle")
+    public List<Task> getTasksByTitle(@RequestParam String title, Long userId) {
+        return taskService.findTasksByTitle(title, userId);
+    }
+
     @PutMapping("updateTask")
     public int updateTask(@RequestBody Task task) {
         return taskService.updateTask(task);
