@@ -68,3 +68,14 @@ overflow-y:auto;
     width: 100%;
     flex-direction: column;
 }
+
+.task-btn{
+    background-color: transparent;
+    border: none;
+    border-radius: 9%;
+    height: 26px;
+}
+
+.task-btn:hover{
+   border-bottom: 3px solid #0d6efd;
+}

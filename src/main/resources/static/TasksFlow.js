@@ -11,6 +11,10 @@ function addTask(id, listId, taskTitle) {
   buttonType.value = "button";
   button.setAttributeNode(buttonType);
 
+  const classAttribute = document.createAttribute("class");
+  classAttribute.value = "task-btn";
+  button.setAttributeNode(classAttribute);
+
   const toggleAttribute = document.createAttribute("data-bs-toggle");
   toggleAttribute.value = "modal";
   button.setAttributeNode(toggleAttribute);
@@ -76,6 +80,9 @@ function createTask() {
   const buttonType = document.createAttribute("type");
   buttonType.value = "button";
   button.setAttributeNode(buttonType);
+  const classAttribute = document.createAttribute("class");
+  classAttribute.value = "task-btn";
+  button.setAttributeNode(classAttribute);
 
   const toggleAttribute = document.createAttribute("data-bs-toggle");
   toggleAttribute.value = "modal";
