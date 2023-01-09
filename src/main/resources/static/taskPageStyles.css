@@ -60,3 +60,11 @@ overflow-y:auto;
 height: 235px;
 overflow-y:auto;
 }
+
+.input-container{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: column;
+}

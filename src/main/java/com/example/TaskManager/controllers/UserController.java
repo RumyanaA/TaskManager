@@ -12,8 +12,8 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService studentService) {
-        this.userService = studentService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("registration")
